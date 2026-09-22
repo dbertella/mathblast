@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101633" />
+    <title>Math Blast — 60 Second Challenge</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" id="home-link" href="#" aria-label="Return to Math Blast home">
+          <span class="brand-mark" aria-hidden="true"><i></i><b></b><em></em></span>
+          <span>MATH <strong>BLAST</strong></span>
+        </a>
+        <div class="topbar-controls">
+          <label class="music-toggle" title="Toggle Game Boy style music">
+            <input type="checkbox" id="music-toggle" checked />
+            <span class="music-switch"><i></i></span>
+            <span id="music-label">MUSIC ON</span>
+          </label>
+          <div class="topbar-status">
+            <span class="status-dot"></span>
+            <span>READY TO PLAY</span>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="intro-panel" id="intro-panel">
+          <div class="intro-copy">
+            <div class="eyebrow"><span class="eyebrow-spark">✦</span> 60 SECOND CHALLENGE</div>
+            <h1>Power up your<br /><span>math skills!</span></h1>
+            <p class="intro-text">Solve as many number missions as you can before the clock hits zero.</p>
+            <div class="intro-perks" aria-label="Game features">
+              <div class="perk"><span>⚡</span><div><b>QUICK THINKING</b><small>Speed through each one</small></div></div>
+              <div class="perk"><span>★</span><div><b>COMBO POINTS</b><small>Build your streak</small></div></div>
+            </div>
+            <div class="operation-settings" aria-labelledby="operations-label">
+              <div class="settings-heading"><span id="operations-label">CHOOSE YOUR MISSIONS</span><small>Tap to add or remove</small></div>
+              <div class="operation-options">
+                <label class="operation-option"><input type="checkbox" value="×" checked /><span class="operation-symbol">×</span><span class="operation-name">MULTIPLY</span></label>
+                <label class="operation-option"><input type="checkbox" value="÷" checked /><span class="operation-symbol">÷</span><span class="operation-name">DIVIDE</span></label>
+                <label class="operation-option"><input type="checkbox" value="+" checked /><span class="operation-symbol">+</span><span class="operation-name">ADD</span></label>
+                <label class="operation-option"><input type="checkbox" value="-" checked /><span class="operation-symbol">−</span><span class="operation-name">SUBTRACT</span></label>
+              </div>
+              <p class="operation-error" id="operation-error" role="alert"></p>
+            </div>
+            <div class="table-settings" aria-labelledby="tables-label">
+              <div class="settings-heading"><span id="tables-label">TIMES TABLES TO PRACTICE</span><small>All 1–12 ready</small></div>
+              <div class="table-options">
+                <label class="table-option"><input type="checkbox" value="1" checked /><span>1</span></label>
+                <label class="table-option"><input type="checkbox" value="2" checked /><span>2</span></label>
+                <label class="table-option"><input type="checkbox" value="3" checked /><span>3</span></label>
+                <label class="table-option"><input type="checkbox" value="4" checked /><span>4</span></label>
+                <label class="table-option"><input type="checkbox" value="5" checked /><span>5</span></label>
+                <label class="table-option"><input type="checkbox" value="6" checked /><span>6</span></label>
+                <label class="table-option"><input type="checkbox" value="7" checked /><span>7</span></label>
+                <label class="table-option"><input type="checkbox" value="8" checked /><span>8</span></label>
+                <label class="table-option"><input type="checkbox" value="9" checked /><span>9</span></label>
+                <label class="table-option"><input type="checkbox" value="10" checked /><span>10</span></label>
+                <label class="table-option"><input type="checkbox" value="11" checked /><span>11</span></label>
+                <label class="table-option"><input type="checkbox" value="12" checked /><span>12</span></label>
+              </div>
+              <p class="table-error" id="table-error" role="alert"></p>
+            </div>
+            <button class="primary-button" id="start-button"><span>START MISSION</span><b>→</b></button>
+          </div>
+          <div class="hero-art-wrap">
+            <div class="orbit orbit-one"></div>
+            <div class="orbit orbit-two"></div>
+            <div class="planet planet-one"></div>
+            <div class="pixel-star star-one">✦</div>
+            <div class="pixel-star star-two">✦</div>
+            <img class="hero-art" src="public/assets/space-cat.png" alt="Pixel-art astronaut cat holding a star" />
+            <div class="art-caption"><span class="caption-pixel"></span> CAPTAIN CALC SAYS: YOU GOT THIS!</div>
+          </div>
+        </section>
+
+        <section class="game-panel hidden" id="game-panel" aria-live="polite">
+          <div class="game-topline">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-spark">✦</span> MISSION IN PROGRESS</div>
+              <h2>Blast through the problems!</h2>
+            </div>
+            <div class="game-stats">
+              <div class="mini-stat"><span>SCORE</span><strong id="score-value">0000</strong></div>
+              <div class="mini-stat streak-stat"><span>STREAK</span><strong id="streak-value">0 <i>×</i></strong></div>
+            </div>
+          </div>
+
+          <div class="timer-row">
+            <div class="timer-track"><div class="timer-fill" id="timer-fill"></div></div>
+            <div class="timer-readout"><span class="timer-icon">◷</span><strong id="timer-value">60</strong><span>SEC</span></div>
+          </div>
+
+          <div class="challenge-grid">
+            <div class="question-card" id="question-card">
+              <div class="question-label">SOLVE THIS</div>
+              <div class="question" id="question-text">8 × 7 <span>=</span> ?</div>
+              <div class="feedback" id="feedback" role="status"></div>
+              <div class="calculator-device">
+                <div class="calculator-topline"><span>CAPTAIN CALC // READY</span><span class="calc-lights"><i></i><i></i><i></i></span></div>
+                <form class="answer-form" id="answer-form">
+                  <label for="answer-input">YOUR ANSWER</label>
+                  <div class="answer-input-row">
+                    <input id="answer-input" inputmode="numeric" autocomplete="off" aria-label="Your answer" />
+                    <button type="submit" class="submit-button" aria-label="Submit answer">↵</button>
+                  </div>
+                </form>
+                <div class="keypad" aria-label="Number keypad">
+                  <button data-key="1">1</button><button data-key="2">2</button><button data-key="3">3</button>
+                  <button data-key="4">4</button><button data-key="5">5</button><button data-key="6">6</button>
+                  <button data-key="7">7</button><button data-key="8">8</button><button data-key="9">9</button>
+                  <button data-key="clear" class="key-muted">C</button><button data-key="0">0</button><button data-key="back" class="key-muted">⌫</button>
+                </div>
+                <p class="keyboard-hint">Tap a key or press <kbd>ENTER</kbd> to lock it in</p>
+              </div>
+            </div>
+
+            <aside class="mission-side">
+              <div class="mission-card">
+                <div class="mission-card-head"><span class="mission-icon">✹</span><b>MISSION TIPS</b></div>
+                <ul><li>Keep your eyes on the timer</li><li>Trust your first answer</li><li>Make every second count!</li></ul>
+              </div>
+              <div class="side-mascot">
+                <img src="public/assets/space-cat.png" alt="Captain Calc mascot" />
+                <span>GO GO GO!</span>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="results-panel hidden" id="results-panel" aria-live="polite">
+          <div class="results-heading">
+            <div>
+              <div class="eyebrow"><span class="eyebrow-spark">✦</span> MISSION COMPLETE</div>
+              <h2>Nice blast, <span>math hero!</span></h2>
+              <p id="result-message">You kept your brain moving for the full mission.</p>
+            </div>
+            <div class="result-badge"><span id="result-score">0</span><small>POINTS</small></div>
+          </div>
+          <div class="result-stats">
+            <div><span class="result-stat-icon correct">✓</span><b id="correct-count">0</b><small>CORRECT</small></div>
+            <div><span class="result-stat-icon wrong">×</span><b id="wrong-count">0</b><small>WRONG</small></div>
+            <div><span class="result-stat-icon accuracy">%</span><b id="accuracy-value">0%</b><small>ACCURACY</small></div>
+            <div><span class="result-stat-icon best">★</span><b id="best-streak">0</b><small>BEST STREAK</small></div>
+          </div>
+          <div class="review-head"><h3>ANSWER REVIEW</h3><span id="review-count">0 MISSIONS</span></div>
+          <div class="review-list" id="review-list"></div>
+          <button class="primary-button replay-button" id="replay-button"><span>PLAY AGAIN</span><b>↻</b></button>
+        </section>
+      </main>
+
+      <footer><span class="footer-pixel"></span> MADE FOR CURIOUS MINDS <span class="footer-pixel"></span> NO CALCULATOR NEEDED</footer>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
