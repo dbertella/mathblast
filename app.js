@@ -19,6 +19,7 @@ const tableInputs = [...document.querySelectorAll('.table-option input')];
 const tableError = document.querySelector('#table-error');
 const musicToggle = document.querySelector('#music-toggle');
 const musicLabel = document.querySelector('#music-label');
+const settingsStorageKey = 'mathblast-settings-v1';
 
 let currentQuestion;
 let timerId;
@@ -38,6 +39,30 @@ let musicStep = 0;
 
 const melodyNotes = [659.25, 783.99, 987.77, 783.99, 587.33, 659.25, 783.99, 523.25, 587.33, 659.25, 783.99, 659.25, 523.25, 587.33, 659.25, 493.88];
 const bassNotes = [164.81, 196, 220, 196, 146.83, 164.81, 196, 130.81];
+
+function loadSavedSettings() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(settingsStorageKey));
+    if (!saved) return;
+    if (Array.isArray(saved.operations)) operationInputs.forEach((input) => { input.checked = saved.operations.includes(input.value); });
+    if (Array.isArray(saved.tables)) tableInputs.forEach((input) => { input.checked = saved.tables.includes(Number(input.value)); });
+  } catch (error) {
+    // Ignore unavailable or malformed local storage and use the defaults.
+  }
+}
+
+function saveSettings() {
+  try {
+    localStorage.setItem(settingsStorageKey, JSON.stringify({
+      operations: operationInputs.filter((input) => input.checked).map((input) => input.value),
+      tables: tableInputs.filter((input) => input.checked).map((input) => Number(input.value)),
+    }));
+  } catch (error) {
+    // The game still works if storage is disabled.
+  }
+}
+
+loadSavedSettings();
 
 function playChiptuneNote(frequency, start, duration, type, volume) {
   const oscillator = musicContext.createOscillator();
@@ -205,17 +230,20 @@ function finishGame() {
 
 document.querySelectorAll('.keypad button').forEach((button) => button.addEventListener('click', () => {
   const key = button.dataset.key;
+  if (key === 'enter') return;
   if (key === 'clear') answerInput.value = '';
   else if (key === 'back') answerInput.value = answerInput.value.slice(0, -1);
   else if (answerInput.value.length < 3) answerInput.value += key;
 }));
 
 operationInputs.forEach((input) => input.addEventListener('change', () => {
+  saveSettings();
   const hasSelection = operationInputs.some((option) => option.checked);
   operationError.textContent = hasSelection ? '' : 'Choose at least one mission type to launch!';
 }));
 
 tableInputs.forEach((input) => input.addEventListener('change', () => {
+  saveSettings();
   const hasSelection = tableInputs.some((option) => option.checked);
   tableError.textContent = hasSelection ? '' : 'Choose at least one table to launch!';
 }));

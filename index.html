@@ -38,7 +38,7 @@
               <div class="perk"><span>★</span><div><b>COMBO POINTS</b><small>Build your streak</small></div></div>
             </div>
             <div class="operation-settings" aria-labelledby="operations-label">
-              <div class="settings-heading"><span id="operations-label">CHOOSE YOUR MISSIONS</span><small>Tap to add or remove</small></div>
+              <div class="settings-heading"><span id="operations-label">CHOOSE YOUR MISSIONS</span><small>Saved automatically</small></div>
               <div class="operation-options">
                 <label class="operation-option"><input type="checkbox" value="×" checked /><span class="operation-symbol">×</span><span class="operation-name">MULTIPLY</span></label>
                 <label class="operation-option"><input type="checkbox" value="÷" checked /><span class="operation-symbol">÷</span><span class="operation-name">DIVIDE</span></label>
@@ -48,7 +48,7 @@
               <p class="operation-error" id="operation-error" role="alert"></p>
             </div>
             <div class="table-settings" aria-labelledby="tables-label">
-              <div class="settings-heading"><span id="tables-label">TIMES TABLES TO PRACTICE</span><small>All 1–12 ready</small></div>
+              <div class="settings-heading"><span id="tables-label">TIMES TABLES TO PRACTICE</span><small>Saved automatically</small></div>
               <div class="table-options">
                 <label class="table-option"><input type="checkbox" value="1" checked /><span>1</span></label>
                 <label class="table-option"><input type="checkbox" value="2" checked /><span>2</span></label>
@@ -106,14 +106,13 @@
                   <label for="answer-input">YOUR ANSWER</label>
                   <div class="answer-input-row">
                     <input id="answer-input" inputmode="numeric" autocomplete="off" aria-label="Your answer" />
-                    <button type="submit" class="submit-button" aria-label="Submit answer">↵</button>
                   </div>
                 </form>
                 <div class="keypad" aria-label="Number keypad">
-                  <button data-key="1">1</button><button data-key="2">2</button><button data-key="3">3</button>
-                  <button data-key="4">4</button><button data-key="5">5</button><button data-key="6">6</button>
-                  <button data-key="7">7</button><button data-key="8">8</button><button data-key="9">9</button>
-                  <button data-key="clear" class="key-muted">C</button><button data-key="0">0</button><button data-key="back" class="key-muted">⌫</button>
+                  <button type="button" data-key="1">1</button><button type="button" data-key="2">2</button><button type="button" data-key="3">3</button>
+                  <button type="button" data-key="4">4</button><button type="button" data-key="5">5</button><button type="button" data-key="6">6</button>
+                  <button type="button" data-key="7">7</button><button type="button" data-key="8">8</button><button type="button" data-key="9">9</button>
+                  <button type="button" data-key="clear" class="key-muted delete-key">DELETE</button><button type="button" data-key="0">0</button><button type="submit" form="answer-form" data-key="enter" class="key-enter" aria-label="Submit answer">ENTER <span>↵</span></button>
                 </div>
                 <p class="keyboard-hint">Tap a key or press <kbd>ENTER</kbd> to lock it in</p>
               </div>
